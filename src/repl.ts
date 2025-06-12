@@ -1,6 +1,4 @@
-import { createInterface } from 'node:readline';
-import { commandExit } from './command_exit.js';
-import { commandHelp } from './command_help.js';
+import { State } from './state.js';
 
 export function cleanInput(input: string): string[] {
     return input
@@ -9,10 +7,10 @@ export function cleanInput(input: string): string[] {
         .filter((el) => el !== '');
 }
 
-export function startREPL(state) {
+export async function startREPL(state: State) {
     const { rl, commands } = state;
     rl.prompt();
-    rl.on('line', (input: string) => {
+    rl.on('line', async (input: string) => {
         const userInput = cleanInput(input);
         if (!userInput) {
             rl.prompt();
@@ -20,7 +18,11 @@ export function startREPL(state) {
         const userCommand = userInput[0];
         const cmd = commands[userCommand];
         if (cmd) {
-            cmd.callback(state);
+            try {
+                await cmd.callback(state);
+            } catch (error) {
+                console.log(error.message);
+            }
         } else {
             console.log('Unknown command');
         }
