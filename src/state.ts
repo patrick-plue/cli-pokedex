@@ -54,7 +54,7 @@ export function initState(): State {
     return {
         commands: getCommands(),
         rl,
-        PokeAPI: new PokeAPI(),
+        PokeAPI: new PokeAPI(60000),
         nextLocationUrl: '',
         prevLocationUrl: '',
     };

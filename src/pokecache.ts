@@ -13,8 +13,12 @@ export class Cache {
         this.#startReapLoop()
     }
 
-    add(key: string, val: CacheEntry<any>) {
-        this.#cache.set(key, val);
+    add<T>(key: string, val: T) {
+        const entry: CacheEntry<T> = {
+            createdAt: Date.now(),
+            val: val
+        }
+        this.#cache.set(key, entry);
     }
 
     get(key: string) {
@@ -42,5 +46,3 @@ export class Cache {
         this.#reapIntervalId = undefined
     }
 }
-
-export const pokeCache = new Cache(60000)
