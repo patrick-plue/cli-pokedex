@@ -4,6 +4,8 @@ import { commandHelp } from './command_help.js';
 import { commandMap, commandMapB } from './comand_map.js';
 import { commandExplore } from './command_explore.js';
 import { commandCatch } from './command_catch.js';
+import { commandInspect } from './command_inspect.js';
+import { commandPokedex } from './command_pokedex.js';
 import { PokeAPI } from './pokeapi.js';
 import type { Pokemon } from './pokeapi.js';
 
@@ -61,11 +63,21 @@ export function initState(): State {
                 name: "catch",
                 description: "Catches a Pokemon",
                 callback: commandCatch
+            },
+            inspect: {
+                name: "inspect",
+                description: "Inspects stats for a specific Pokemon",
+                callback: commandInspect
+            },
+            pokedex: {
+                name: "pokedex",
+                description: "Lists all catched pokemon",
+                callback: commandPokedex
             }
         };
     }
 
-    const pokedex: Record<string,Pokemon>= {}
+    const Pokedex: Record<string,Pokemon>= {}
 
     return {
         commands: getCommands(),
@@ -73,6 +85,6 @@ export function initState(): State {
         PokeAPI: new PokeAPI(60000),
         nextLocationUrl: '',
         prevLocationUrl: '',
-        pokedex
+        pokedex: Pokedex
     };
 }
