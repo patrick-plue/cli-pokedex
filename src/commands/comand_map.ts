@@ -1,4 +1,4 @@
-import { State } from './state';
+import { State } from '../state';
 export async function commandMap(state: State) {
     const { PokeAPI } = state;
     const locations = await PokeAPI.fetchLocations(state.nextLocationUrl);

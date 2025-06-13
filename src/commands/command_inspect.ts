@@ -1,4 +1,4 @@
-import { State } from "./state.js";
+import { State } from "../state.js";
 
 export async function commandInspect(state: State, name: string) {
     const {pokedex} = state

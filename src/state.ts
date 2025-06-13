@@ -1,13 +1,6 @@
 import { createInterface, type Interface } from 'readline';
-import { commandExit } from './command_exit.js';
-import { commandHelp } from './command_help.js';
-import { commandMap, commandMapB } from './comand_map.js';
-import { commandExplore } from './command_explore.js';
-import { commandCatch } from './command_catch.js';
-import { commandInspect } from './command_inspect.js';
-import { commandPokedex } from './command_pokedex.js';
-import { PokeAPI } from './pokeapi.js';
-import type { Pokemon } from './pokeapi.js';
+import { commandExit, commandHelp, commandMap, commandMapB, commandExplore, commandCatch, commandInspect, commandPokedex} from './commands/index.js';
+import { PokeAPI, Pokemon} from './api/pokeapi.js';
 
 export type CLICommand = {
     name: string;
