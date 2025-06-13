@@ -9,10 +9,9 @@ export async function commandCatch(state: State ,name: string){
     console.log("Throwing a Pokeball at " + name + "...")
 
     const pokemon = await PokeAPI.fetchPokemon(name)
-    // const baseExperience = pokemon["base_experience"]
+    const baseExperience = pokemon["base_experience"]
 
-    // refactor this to consider base_experience for outcome
-    const catched = determineOutcome(0.5) 
+    const catched = determineOutcome(baseExperience) 
     if (catched){
         console.log(`${name} catched`)
         pokedex[name] = pokemon
@@ -23,8 +22,9 @@ export async function commandCatch(state: State ,name: string){
 
 
 function determineOutcome(num: number): boolean{
-    const randomNumber = Math.random()
-    if (randomNumber > num){
+    const randomNumber = Math.floor(Math.random() * num) 
+    console.log(randomNumber)
+    if (randomNumber < 40){
         return true
     } else {
         return false
