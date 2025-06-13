@@ -5,9 +5,11 @@ export async function commandMap(state: State) {
     state.nextLocationUrl = locations.next;
     state.prevLocationUrl = locations.previous;
 
+    console.log("")
     locations.results.forEach((location) => {
-        console.log(location.name);
+        console.log("location: " +location.name);
     });
+    console.log("")
 }
 
 export async function commandMapB(state: State) {
@@ -19,7 +21,9 @@ export async function commandMapB(state: State) {
     const locations = await PokeAPI.fetchLocations(state.prevLocationUrl);
     state.nextLocationUrl = locations.next;
     state.prevLocationUrl = locations.previous;
+    console.log("")
     locations.results.forEach((location) => {
-        console.log(location.name);
+        console.log("location: " +location.name);
     });
+    console.log("")
 }

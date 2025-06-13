@@ -16,10 +16,11 @@ export async function startREPL(state: State) {
             rl.prompt();
         }
         const userCommand = userInput[0];
+        const userArgs = userInput.slice(1)
         const cmd = commands[userCommand];
         if (cmd) {
             try {
-                await cmd.callback(state);
+                await cmd.callback(state, ...userArgs);
             } catch (error) {
                 console.log(error.message);
             }

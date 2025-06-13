@@ -2,12 +2,15 @@ import { createInterface, type Interface } from 'readline';
 import { commandExit } from './command_exit.js';
 import { commandHelp } from './command_help.js';
 import { commandMap, commandMapB } from './comand_map.js';
+import { commandExplore } from './command_explore.js';
+import { commandCatch } from './command_catch.js';
 import { PokeAPI } from './pokeapi.js';
+import type { Pokemon } from './pokeapi.js';
 
 export type CLICommand = {
     name: string;
     description: string;
-    callback: (state: State) => Promise<void>;
+    callback: (state: State, ...args: string[]) => Promise<void>;
 };
 export type State = {
     commands: Record<string, CLICommand>;
@@ -15,6 +18,7 @@ export type State = {
     PokeAPI: PokeAPI;
     nextLocationUrl: string;
     prevLocationUrl: string;
+    pokedex: Record<string,Pokemon>
 };
 
 export function initState(): State {
@@ -48,8 +52,20 @@ export function initState(): State {
                     'Display previous 20 location areas in the Pokemon world',
                 callback: commandMapB,
             },
+            explore: {
+                name: "explore",
+                description: "Displays a list of Pokemon in a given area",
+                callback: commandExplore
+            },
+            catch: {
+                name: "catch",
+                description: "Catches a Pokemon",
+                callback: commandCatch
+            }
         };
     }
+
+    const pokedex: Record<string,Pokemon>= {}
 
     return {
         commands: getCommands(),
@@ -57,5 +73,6 @@ export function initState(): State {
         PokeAPI: new PokeAPI(60000),
         nextLocationUrl: '',
         prevLocationUrl: '',
+        pokedex
     };
 }
